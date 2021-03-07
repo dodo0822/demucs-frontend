@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block body %}
+    <h2>demucs front-end</h2>
+    <h3>Jobs</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Job ID</th>
+                <th>Filename</th>
+                <th>Upload time</th>
+                <th>Status</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in jobs %}
+                <tr>
+                    <td>{{ job._id }}</td>
+                    <td>{{ job.filename }}</td>
+                    <td>{{ job.create_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td>{{ job.status }}</td>
+                    <td>
+                        {% if job.status == 'done' %}<a href="{{ url_for('download', id=job._id) }}">Download</a>{% endif %}
+                        <a href="{{ url_for('details', id=job._id) }}">View</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>Upload a file</h3>
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('upload') }}">
+        <p>Upload MP3: <input type="file" name="file" /></p>
+        <p><input type="submit" value="Upload" /></p>
+    </form>
+{% endblock %}

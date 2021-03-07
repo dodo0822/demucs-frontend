@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block body %}
+    <h2>Job details</h2>
+    {% if error %}
+        <p>{{ error }}</p>
+    {% else %}
+        <p>Job ID: {{ job._id }}</p>
+        <p>Filename: {{ job.filename }}</p>
+        <p>Creation time: {{ job.create_time.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+        <p>Status: {{ job.status }}</p>
+        <p>Conversion output:</p>
+        <pre>{{ job.output }}</pre>
+    {% endif %}
+    <p><a href="{{ url_for('home') }}">back</a></p>
+{% endblock %}
